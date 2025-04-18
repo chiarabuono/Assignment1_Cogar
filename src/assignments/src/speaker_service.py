@@ -7,9 +7,7 @@ from assignments.srv import Speaker, SpeakerResponse
 
 def speaker_callback(req):
     rospy.loginfo(f"Received a message: {req.message}")
-    
     num = random.randint(1, 100)
-    
     if(num < 10):
         rospy.loginfo("speaker failed")
         success = False
