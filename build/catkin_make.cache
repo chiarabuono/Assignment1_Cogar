@@ -1,2 +1,2 @@
 assignments
--DCATKIN_DEVEL_PREFIX=/home/abulanti/assign/devel -DCMAKE_INSTALL_PREFIX=/home/abulanti/assign/install -G Unix Makefiles
+-DCATKIN_DEVEL_PREFIX=/root/COGAR/src/Assignment1_Cogar/devel -DCMAKE_INSTALL_PREFIX=/root/COGAR/src/Assignment1_Cogar/install -G Unix Makefiles
