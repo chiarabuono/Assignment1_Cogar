@@ -1,5 +1,5 @@
 <launch>
     <node pkg="assignments" type="crack_detection.py" name="crack_detection" output= "screen"/>
     <node pkg="assignments" type="damage_detection.py" name="damage_detection" output= "screen"/>
-    <node pkg="assignments" type="envirornment_alert.py" name="environment_alert" output="screen"/>
+    <node pkg="assignments" type="environment_alert.py" name="environment_alert" output="screen"/>
 </launch>
