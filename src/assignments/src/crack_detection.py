@@ -26,8 +26,10 @@ class CrackDetection:
         cracks.cracks = []
         for i in range(n_cracks):
             crack = Crack()
-            crack.x = int(random.randint(1, image.width))
-            crack.y = int(random.randint(1, image.height))
+            # TODO: this are map coordinates, there should be some constant which bounds the size
+            # it would aso make sense to have a z axis
+            crack.x = random.rand() * 10000
+            crack.y = random.rand() * 10000
             crack.severity = String(severities[random.randint(0, len(severities) -1)])
             cracks.cracks.append(crack)
 
