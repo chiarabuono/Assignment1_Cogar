@@ -5,6 +5,7 @@ import random
 from std_msgs.msg import Bool, Int32  # Add Int32 here
 from sensor_msgs.msg import Image
 from nav_msgs.msg import Odometry
+from audio_common_msgs.msg import AudioData
 
 # receive inform from RGB e Microphones
 class VictimDetection:
@@ -12,7 +13,7 @@ class VictimDetection:
         rospy.init_node('victim_detection_node')
         
         self.rbg_sub = rospy.Subscriber("/xtion/rgb/image_raw", Image, self.image_processing)
-        self.mic_sub = rospy.Subscriber("/mic", Int32, self.mic_callback)
+        self.mic_sub = rospy.Subscriber("/mic", AudioData, self.mic_callback)
         self.publisher = rospy.Publisher("/victim_detected", Bool, queue_size=1)
 
         self.person_in_image = False 
