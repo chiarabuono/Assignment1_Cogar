@@ -1,0 +1,14 @@
+<launch>
+     <!-- Init -->
+    <node pkg="assignments" type="microphone.py" name="microphone" output="screen"/>
+    <node pkg="assignments" type="robot.py" name="robot_node" output="screen" />
+
+    <!-- Task 1 -->
+    <node pkg="assignments" type="damage_detection.py" name="damage_detection" output= "screen"/>
+    <!-- <node pkg="assignments" type="environment_alert.py" name="environment_alert" output="screen"/> -->
+
+     <!-- Task 2 -->
+    <node pkg="assignments" type="person_alert.py" name="person_alert_node" output="screen"/>
+    <node pkg="assignments" type="victim_detection.py" name="victim_detection_node" output="screen"/>
+    
+</launch>
