@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  audio_common_msgs
   message_generation
 )
 
@@ -59,6 +60,8 @@ add_service_files(
   FILES
   CheckJointState.srv
   Speaker.srv
+  Alert.srv
+  WallStatus.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -108,7 +111,7 @@ catkin_package(
 #  LIBRARIES assignments
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
-   CATKIN_DEPENDS message_runtime roscpp rospy std_msgs
+   CATKIN_DEPENDS message_runtime roscpp rospy std_msgs audio_common_msgs
 )
 
 ###########

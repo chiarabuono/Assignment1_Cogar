@@ -4,6 +4,7 @@ import random
 
 from std_msgs.msg import String
 from assignments.msg import Cracks, Crack
+from assignments.srv import WallStatus, WallStatusResponse
 
 
 class DamageDetection:
@@ -38,7 +39,12 @@ class DamageDetection:
 
         max_severity = max(severity_counts, key=severity_counts.get)
 
-        return max_severity
+        #TODO: compute the wall position
+        x_wall = random.randint(0, 10)
+        y_wall = random.randint(0, 10)
+        wall = Crack(x_wall, y_wall, max_severity) # FIXME: this makes no sense
+
+        return WallStatusResponse(wall)
 
 
     def run(self):

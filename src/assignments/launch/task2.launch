@@ -1,5 +1,0 @@
-<launch>
-    <node pkg="assignments" type="microphone.py" name="microphone" output="screen"/>
-    <node pkg="assignments" type="victim_detection.py" name="victim_detection_node" output="screen"/>
-    <node pkg="assignments" type="person_alert.py" name="person_alert_node" output="screen" />
-</launch>

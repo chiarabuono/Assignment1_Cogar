@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import rospy
-from audio_common_msgs.msg import AudioData
+from audio_common_msgs.msg import AudioData # sudo apt install ros-${ROS_DISTRO}-audio-common-msgs
 import numpy as np
 import random
 
