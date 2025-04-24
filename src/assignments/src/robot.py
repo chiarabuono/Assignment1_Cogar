@@ -8,12 +8,12 @@ from assignments.msg import Cracks, Crack
 from assignments.srv import Alert, AlertResponse, WallStatus, WallStatusResponse
 
 from sensor import *
-from motor import Motor
+from motor import MotorController
 
 class RobotController:
     def __init__(self):
-        self.sensors = []
-        self.motor = Motor()
+        #self.sensors = []
+        self.motor = MotorController()
 
     def add_sensor(self, sensor):
         self.sensors.append(sensor)
@@ -29,10 +29,13 @@ class RobotController:
 
         elif msg.data == "not sure":
             rospy.loginfo("Not sure, approaching")
-            self.motor.approach()
+            # TODO: implement x and y to approach
+            x = 0
+            y = 0
+            self.motor.approach(x, y)
         else: 
             rospy.loginfo("Person found!")
-            self.sendAlarm()
+            self.sendAlarm("person")
             self.evaluateCondition()
             
 
@@ -40,31 +43,32 @@ class RobotController:
         pass
 
     def detectStructure(self, msg):
-        # TODO: FAI
-        num = random.randint(0, 10)
-
-        if (msg.n_cracks == 0): 
-            rospy.loginfo(f"No cracks")
+        if msg.severity.data == "None": 
+            rospy.loginfo("No dangerous structures found!")
             self.motor.move()
 
-        elif (num < 2): 
-            rospy.loginfo(f"Not enough information")
-            self.motor.approach()
-        else:
-            rospy.wait_for_service("/wall_classification")
-            rospy.loginfo("Classification of the wall")
-            classification_service = rospy.ServiceProxy("wall_classification", WallStatus)
-            resp = classification_service(msg)
-            
-            rospy.loginfo(f"Wall classification: {resp}")
+        elif msg.severity.data == "not sure":
+            rospy.loginfo("Not sure, approaching")
+            self.motor.approach(msg.x, msg.y)
+        else: 
+            rospy.loginfo("Critical wall found")
+            self.sendAlarm("person")
+            # TODO: what else needs to be done?
 
-    def sendAlarm(self):
-        rospy.wait_for_service('/person_alert')
+    def sendAlarm(self, typeObject):
         rospy.loginfo("Sending alarm")
-        try:
+        if (typeObject == "person"):
+            rospy.wait_for_service('/person_alert')
             alert_service = rospy.ServiceProxy('/person_alert', Alert)
+
+        elif (typeObject == "wall"):
+            rospy.wait_for_service('/environment_alert')
+            alert_service = rospy.ServiceProxy('/environment_alert', Alert)
+            #TODO implement wall alert
+       
+        try:
             resp = alert_service(True)
-            rospy.loginfo(f"Person found successfully at position: {resp.positions}")
+            rospy.loginfo(f"{typeObject} at position: {resp.positions}. Send alarm correctly.")
         except rospy.ServiceException as e:
             rospy.logerr(f"Service call failed: {e}")
         
@@ -72,7 +76,6 @@ class RobotController:
     def notifySuccess(self):
         pass
         
-
     
 if __name__ == '__main__':
     rospy.init_node('robot_node')
@@ -82,7 +85,7 @@ if __name__ == '__main__':
     robot.add_sensor(MicSensor("mic"))
     
     rospy.Subscriber("victim_detected", String, robot.detectVictim)
-    rospy.Subscriber('cracks', Cracks, robot.detectStructure)
+    rospy.Subscriber('wall_classification', Crack, robot.detectStructure)
     
     rate = rospy.Rate(1) 
     while not rospy.is_shutdown():

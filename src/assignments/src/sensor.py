@@ -4,7 +4,7 @@ import random
 from abc import ABC, abstractmethod
 
 from std_msgs.msg import String, Bool, Int32
-from audio_common_msgs.msg import AudioData # sudo apt install ros-${ROS_DISTRO}-audio-common-msgs
+from audio_common_msgs.msg import AudioData # TODO sudo apt install ros-${ROS_DISTRO}-audio-common-msgs
 from sensor_msgs.msg import Image
 from assignments.msg import Cracks, Crack
 
@@ -24,7 +24,7 @@ class Sensor(ABC):
         # implement method that is called by the subscriber
         pass
 
-class RgbSensor(Sensor):
+class RgbSensor(Sensor): # TODO divide in crack detection and person_detection
     def receive_data(self):
         self.subscriber = rospy.Subscriber('/xtion/rgb/image_raw', Image, self.elaborate_data)
         

@@ -30,7 +30,6 @@ class VictimDetection:
         while not rospy.is_shutdown():
             if self.person_in_image and self.heard_person:
                 # rospy.loginfo("Person found!")
-                # TODO: call here the service to detect the person service
                 self.publisher.publish("found")
 
             elif self.person_in_image or self.heard_person:
