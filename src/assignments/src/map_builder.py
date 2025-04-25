@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import rospy
 import random
 
@@ -16,7 +18,7 @@ class Localization:
         self.localization_sub = rospy.Subscriber("localization_sub", Point, self.localization_callback) # TODO: check that circular dependency doesn't cause any problems
 
         self.victim_sub = rospy.Subscriber("victim_detected", Point, self.victim_callback)
-        # self.wall_sub = rospy.Subscriber("victim_detected", Point, self.wall_callback) FIXME: wall identification missing
+        self.wall_sub = rospy.Subscriber("walls", Point, self.wall_callback) FIXME: wall identification missing
         
         rospy.loginfo(f"Map builder node active")
 

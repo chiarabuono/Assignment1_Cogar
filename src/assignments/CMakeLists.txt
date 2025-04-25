@@ -53,6 +53,8 @@ add_message_files(
   FILES
   Crack.msg
   Cracks.msg
+  Wall.msg
+  Map.msg
 )
 
 ## Generate services in the 'srv' folder
