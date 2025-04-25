@@ -55,6 +55,7 @@ add_message_files(
   Cracks.msg
   Wall.msg
   Map.msg
+  Velocities.msg
 )
 
 ## Generate services in the 'srv' folder
