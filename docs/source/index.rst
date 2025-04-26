@@ -8,45 +8,20 @@ Cogar Assignments documentation
 
 This repository contains the code for the `Assignment_Cogar` project.  
 
-
 Repository Structure
 --------------------
+# TODO: write the repository structure once finisher
 
-- **src/**
-  
+.. - **src/**
   Contains the `assignments` ROS package, which includes Python service nodes.
   All services are presented together, but they are organized by assignments as follows:
-
   - **Topic 1 Services:**
     - `speaker_service.py`
-
-  - **Topic 2 Services:**
-    - `arm_motion_service.py`
-    - `speaker_service.py`
-
-  - **Topic 3 Services:**
-    - `arm_motion_service.py` 
-
-
-- **srv/**
-
+ - **srv/**
   Contains all custom ROS service definitions, categorized per topics:
-
-  
   - **Topic 1 .srv:**
     - `Speaker.srv`
-
-  - **Topic 2 .srv:**
-    - `Speaker.srv` 
-    - `CheckJointState.srv`
-
-  - **Topic 3 .srv:**
-    - `CheckJointState.srv`
-
-
-
-- **docs/**
-
+ - **docs/**
   Includes documentation materials and reference content used to write this documentation.
 
 - **TIAGo .bag**
@@ -54,7 +29,6 @@ Repository Structure
   Below are the data collected in bags from the TIAGo sensors, which can be found on OneDrive.
   Each bag represents inputs captured from one specific sensor, including:
 
-  
   - RGB-D Camera: Depth raw images, RGB raw images.
   - LiDAR: Environment point cloud.
   - SONAR: Distance measurements.
@@ -63,8 +37,11 @@ Repository Structure
   - Arm Joint State: Includes information about the robot's limb, such as positions, velocities, and effort. 
 
 
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+   component_diagram
+   behaviour_diagram
+   integration_KPI
 
