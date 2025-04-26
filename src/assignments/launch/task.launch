@@ -8,6 +8,7 @@
     <node pkg="assignments" type="crack_detection.py" name="crack_detection" output= "screen"/>
 
     <!-- 3D mapping  -->
+    <node pkg="assignments" type="closer_inspection.py" name="closer_inspection" output= "screen"/>
     <node pkg="assignments" type="localization.py" name="localization" output= "screen"/>
     <node pkg="assignments" type="map_builder.py" name="map_builder" output= "screen"/>
 

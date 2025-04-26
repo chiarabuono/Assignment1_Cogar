@@ -73,6 +73,7 @@ add_service_files(
   FILES
   Alert.srv
   CheckJointState.srv
+  CloserInspection.srv
   DamageReport.srv
   Destination.srv
   Speaker.srv
