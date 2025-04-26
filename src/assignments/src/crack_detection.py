@@ -12,11 +12,11 @@ class CrackDetection:
     def __init__(self):
         rospy.init_node('crack_detection')
         self.publisher = rospy.Publisher('cracks', Cracks, queue_size=10)
-        self.subscriber = rospy.Subscriber('/xtion/rgb/image_raw', Image, self.rgb_callback)
+        self.subscriber = rospy.Subscriber('/xtion/rgb/image_raw', Image, self.detect_cracks)
 
         rospy.loginfo(f"Crack detection node active")
 
-    def rgb_callback(self, image):
+    def detect_cracks(self, image):
         #rospy.loginfo(f"Received image with height: {image.height}, and width: {image.width}")
 
         n_cracks = random.randint(0,10)

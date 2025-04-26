@@ -14,7 +14,7 @@ class Localization:
         self.y = 0
         self.z = 0
 
-        self.position_publisher = rospy.Publisher("robot_position", Point, queue_size=10)
+        self.trajectory_publisher = rospy.Publisher("trajectory", , queue_size=10)
 
         self.rbgd_sub = rospy.Subscriber("/xtion/rgb/image_raw", Image, self.rgbd_callback)
         self.odom_sub = rospy.Subscriber("/mobile_base_controller/odom", Odometry, self.odometry_callback)

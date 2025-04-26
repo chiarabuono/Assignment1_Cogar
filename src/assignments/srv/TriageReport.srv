@@ -1,0 +1,4 @@
+Point position
+Int64 severity
+---
+Bool received

@@ -3,6 +3,7 @@
 import rospy
 import random
 from std_msgs.msg import Bool, Int32, String
+from geometry_msgs.msg import Point
 from sensor_msgs.msg import Image
 from audio_common_msgs.msg import AudioData
 
@@ -12,7 +13,7 @@ class VictimTriage:
         
         self.rgbdSub = rospy.Subscriber("/xtion/rgb/image_raw", Image, self.checkMovement)
         self.mic_sub = rospy.Subscriber("/mic", AudioData, self.audioAnalisysCallback)
-        self.victimDetectedSub = rospy.Subscriber("/victim_detected", Bool, self.VictimDetectionCallback)
+        self.victimDetectedSub = rospy.Subscriber("victim_detected", Point, self.VictimDetectionCallback)
 
         self.speakerPub = rospy.Publisher("/speaker", String, queue_size = 1) #TODO: use speaker service
         self.triagePub = rospy.Publisher("/triage", Int32, queue_size = 1)
@@ -26,7 +27,7 @@ class VictimTriage:
         rospy.loginfo("Victim triage node is ready!")
 
     def VictimDetectionCallback(self, msg):
-        self.victimDetected = msg.data
+        self.victimDetected = True
 
     def checkMovement(self, msg): 
         rand = random.randint(1, 100)

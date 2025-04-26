@@ -5,7 +5,7 @@ import random
 
 class WallIdentification:
     def __init__(self):
-        self.wall_publisher = rospy.Publisher("robot_position", Point, queue_size=10)
+        self.wall_publisher = rospy.Publisher("wall", Point, queue_size=10)
 
         self.rbgd_sub = rospy.Subscriber("/xtion/rgb/image_raw", Image, self.rgbd_callback)
         self.lidar_sub = rospy.Subscriber("/scan", LaserScan, self.lidar_callback)

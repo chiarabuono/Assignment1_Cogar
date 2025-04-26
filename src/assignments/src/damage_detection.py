@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
+
+# TODO: rename to risk_classificator
 import rospy
 import random
 
 from std_msgs.msg import String
 from assignments.msg import Cracks, Crack
-from assignments.srv import WallStatus, WallStatusResponse
-
+from assignments.srv import Destination, DestinationRequest
 
 class DamageDetection:
     def __init__(self):
         rospy.init_node('damage_detection')
         self.subscriber = rospy.Subscriber('cracks', Cracks, self.crack_analizer)
-        self.publisher = rospy.Publisher("wall_classification", String, queue_size=10)
+        self.subscriber = rospy.Subscriber('wall_identification', Wall, self.wall_callback)
+
+        self.trajectory_client = rospy.ServiceProxy('movement_destination', Destination)
 
         rospy.loginfo(f"Damage detection node active")
-        
 
     def crack_analizer(self, msg):
         num = random.randint(0, 10)
@@ -23,28 +25,18 @@ class DamageDetection:
             rospy.loginfo(f"No cracks")
 
         elif (num < 2): 
-            rospy.loginfo(f"Not enough information")
+            rospy.loginfo(f"Not enough information, moving closer")
+            destination = DestinationRequest(Point(rand.rand() * 100, rand.rand() * 100))
+            self.trajectory_client(destination)
+
         else:
             class_classification = self.wall_classification(msg)
             self.publisher.publish(class_classification)
             rospy.loginfo(f"Wall classification: {class_classification}")
     
-    def wall_classification(self, msg):
-        severity_counts = {}
-        for i in range(msg.n_cracks):
-            if (msg.cracks[i].severity.data not in severity_counts): 
-                severity_counts[msg.cracks[i].severity.data] = 1
-            else: 
-                severity_counts[msg.cracks[i].severity.data] += 1
+    def wall_callback(self, msg):
+        
 
-        max_severity = max(severity_counts, key=severity_counts.get)
-
-        #TODO: compute the wall position
-        x_wall = random.randint(0, 10)
-        y_wall = random.randint(0, 10)
-        wall = Crack(x_wall, y_wall, max_severity) # FIXME: this makes no sense
-
-        return WallStatusResponse(wall)
 
 
     def run(self):
