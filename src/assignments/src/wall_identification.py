@@ -20,7 +20,7 @@ class WallIdentification:
         self.lidar_sub = rospy.Subscriber("/scan", LaserScan, self.lidar_callback)
         self.sonar_sub = rospy.Subscriber("/sonar_base", Range, self.sonar_callback)
 
-        self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback) # TODO: check that circular dependency doesn't cause any problems
+        self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback)
 
         rospy.loginfo(f"Damage detection node active")
 

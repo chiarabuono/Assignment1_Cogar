@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-# TODO: rename to risk_classificator
 import rospy
 import random
 

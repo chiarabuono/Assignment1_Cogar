@@ -18,7 +18,7 @@ class CrackDetection:
         self.y = 0
         self.z = 0
 
-        self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback) # TODO: check that circular dependency doesn't cause any problems
+        self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback)
         self.publisher = rospy.Publisher('cracks', Cracks, queue_size=10)
         self.subscriber = rospy.Subscriber('/xtion/rgb/image_raw', Image, self.detect_cracks)
         self.lidar_sub = rospy.Subscriber("/scan", LaserScan, self.lidar_callback)

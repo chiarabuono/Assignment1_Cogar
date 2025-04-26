@@ -53,9 +53,8 @@ class VictimDetection:
     def run(self):
         rate = rospy.Rate(1) 
         while not rospy.is_shutdown():
-            #TODO: get robot position and add some value to it to simulate person position
             if self.person_in_image or self.heard_person:
-                person_position = Point(random.random() * 1000, random.random() * 1000, random.random()*1000)
+                person_position = Point(self.x + random.random() * 10, self.y + random.random() * 10, self.z + random.random()*10)
                 self.publisher.publish(person_position)
                 self.message_client(VictimReportRequest(person_position))
 

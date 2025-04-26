@@ -27,7 +27,6 @@ class PersonAlert:
         rospy.loginfo(f"Received a message: {req.message}")
         if req.message:
             rospy.loginfo("Sending alarm with person position")
-            # TODO: ask if we have to implement the operator
             person_position = self.compute_person_position()
             return AlertResponse(positions=person_position)
 

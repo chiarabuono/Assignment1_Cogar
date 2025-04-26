@@ -19,7 +19,7 @@ class MapBuilder:
         self.lidar_sub = rospy.Subscriber("/scan", LaserScan, self.lidar_callback)
         self.sonar_sub = rospy.Subscriber("/sonar_base", Range, self.sonar_callback)
 
-        self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback) # TODO: check that circular dependency doesn't cause any problems
+        self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback)
 
         self.victim_sub = rospy.Subscriber("victim_detected", Point, self.victim_callback)
         self.wall_sub = rospy.Subscriber("wall", Wall, self.wall_callback)
