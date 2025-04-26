@@ -54,33 +54,43 @@ class VictimTriage:
         rate = rospy.Rate(1)
 
         while not rospy.is_shutdown():
-            if self.victimDetected and self.personIsMoving:
-                self.speakerPub.publish("Are you ok?")
+            if self.victimDetected:
                 self.responseTime = rospy.Time.now()
-                rospy.loginfo("Asking victim if they are okay...")
-                
-                # Wait for up to 10 seconds for a response
-                response_received = False
-                start_time = rospy.Time.now()
-                
-                while (rospy.Time.now() - start_time).to_sec() < 10:
-                    if self.response:
-                        response_received = True
-                        break
-                    rospy.sleep(0.5)
+                if self.personIsMoving:
+                    self.responseTime = rospy.Time.now()
+                    self.speakerPub.publish("Are you ok?")
+                    rospy.loginfo("Asking victim if they are okay...")
+                    
+                    # Wait for up to 10 seconds for a response
+                    response_received = False
+                    start_time = rospy.Time.now()
+                    
+                    while (rospy.Time.now() - start_time).to_sec() < 10:
+                        if self.response:
+                            response_received = True
+                            break
+                        rospy.sleep(0.5)
 
-                if response_received:
-                    elapsed = (rospy.Time.now() - self.responseTime).to_sec()
-                    self.message_client(self.victim_position, elapsed)
-                    rospy.loginfo(f"Victim responded in {int(elapsed)} seconds.")
-                else:
-                    rospy.loginfo("No response from victim. Publishing code 99.")
-                    self.message_client(self.victim_position, 99)
+                    if response_received:
+                        elapsed = (rospy.Time.now() - self.responseTime).to_sec()
+                        self.message_client(self.victim_position, elapsed)
+                        rospy.loginfo(f"Victim responded in {int(elapsed)} seconds.")
+                    else:
+                        rospy.loginfo("No response from victim. Publishing code 99.")
+                        self.message_client(self.victim_position, 99)
 
-                    self.response = False
+                        self.response = False
+                        self.victimDetected = False
+                        self.personIsMoving = False
                     self.victimDetected = False
-                    self.personIsMoving = False
-                self.victimDetected = False
+                else:
+                    elapsed = (rospy.Time.now() - self.responseTime).to_sec()
+                    if elapsed > 10:
+                        rospy.loginfo("Person is dead")
+                        self.message_client(self.victim_position, 99)
+                        self.response = False
+                        self.victimDetected = False
+                        self.personIsMoving = False
             else: 
                 rospy.loginfo("Waiting for person")
             rate.sleep()
