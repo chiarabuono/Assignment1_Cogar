@@ -2,8 +2,9 @@
 
 import rospy
 import random
-from std_msgs.msg import Point 
+from geometry_msgs.msg import Point 
 from sensor_msgs.msg import Image
+from audio_common_msgs.msg import AudioData # sudo apt install ros-${ROS_DISTRO}-audio-common-msgs
 
 class VictimDetection:
     def __init__(self):
@@ -22,7 +23,7 @@ class VictimDetection:
         self.person_in_image = msg
 
     def mic_callback(self, msg):
-        if msg.data < 100:  
+        if int(msg.data[0]) < 100:  
             self.heard_person = False
         else:
             self.heard_person = Trued_person = msg
@@ -41,7 +42,7 @@ class VictimDetection:
         while not rospy.is_shutdown():
             #TODO: get robot position and add some value to it to simulate person position
             if self.person_in_image or self.heard_person:
-                self.publisher.publish(Point(random.rand() * 1000, random.rand() * 1000, random.rand()*1000))
+                self.publisher.publish(Point(random.random() * 1000, random.random() * 1000, random.random()*1000))
 
             rate.sleep()
         

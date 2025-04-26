@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-from assignments.msg import Velocities
+import rospy
+import random
+
+from assignments.msg import Map, Velocities
 from assignments.srv import Destination, DestinationResponse
+
+from geometry_msgs.msg import Point
 
 class TrajectoryControl:
     def __init__(self):
+        rospy.init_node('trajectory_control')
         self.walls = []
         self.victims = []
 
@@ -17,8 +23,8 @@ class TrajectoryControl:
         rospy.loginfo(f"Trajectory control node active")
 
     def destination_callback(self, req):
-        self.velocities_publisher.publish(Velocities(random.rand() * 10,
-            random.rand() * 10 , random.rand() * 10, random.rand() * 10 ))
+        self.velocities_publisher.publish(Velocities(random.random() * 10,
+            random.random() * 10 , random.random() * 10, random.random() * 10 ))
         return DestinationResponse(True)
 
     def map_callback(self, msg):
@@ -28,14 +34,9 @@ class TrajectoryControl:
         pass
 
     def run(self):
-        rate = rospy.Rate(100) 
-        while not rospy.is_shutdown():
-            # TODO: manage map completion
-            self.map_publisher.publish(Map(self.walls, self.victims, False)) 
-
-            rate.sleep()
+        rospy.spin()
 
 if __name__ == '__main__':
-    node = DamageDetection()
+    node = TrajectoryControl()
     node.run()
 

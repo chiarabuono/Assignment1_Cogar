@@ -6,15 +6,19 @@ import random
 from nav_msgs.msg import Odometry
 from sensor_msgs.msg import Range, LaserScan
 
+from sensor_msgs.msg import Image
+from geometry_msgs.msg import Point
+
 from assignments.msg import Map 
 
 class Localization:
     def __init__(self):
+        rospy.init_node('localization')
         self.x = 0
         self.y = 0
         self.z = 0
 
-        self.trajectory_publisher = rospy.Publisher("trajectory", , queue_size=10)
+        self.trajectory_publisher = rospy.Publisher("localization", Point, queue_size=10)
 
         self.rbgd_sub = rospy.Subscriber("/xtion/rgb/image_raw", Image, self.rgbd_callback)
         self.odom_sub = rospy.Subscriber("/mobile_base_controller/odom", Odometry, self.odometry_callback)
@@ -44,10 +48,10 @@ class Localization:
     def run(self):
         rate = rospy.Rate(100) 
         while not rospy.is_shutdown():
-            self.position_publisher.publish(Point(self.x, self.y, self.z))
+            self.trajectory_publisher.publish(Point(self.x, self.y, self.z))
 
             rate.sleep()
 
 if __name__ == '__main__':
-    node = DamageDetection()
+    node = Localization()
     node.run()

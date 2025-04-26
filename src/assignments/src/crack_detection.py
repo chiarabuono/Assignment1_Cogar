@@ -28,8 +28,8 @@ class CrackDetection:
             crack = Crack()
             # TODO: this are map coordinates, there should be some constant which bounds the size
             # it would aso make sense to have a z axis
-            crack.x = random.rand() * 10000
-            crack.y = random.rand() * 10000
+            crack.x = random.random() * 10000
+            crack.y = random.random() * 10000
             crack.severity = String(severities[random.randint(0, len(severities) -1)])
             cracks.cracks.append(crack)
 

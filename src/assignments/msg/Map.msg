@@ -1,3 +1,3 @@
-Point[] Walls
-Point[] Victims
-Bool completed
+Wall[] walls
+geometry_msgs/Point[] victims
+bool completed

@@ -1,3 +1,3 @@
-Point position
-Float64 height
-Float64 width
+geometry_msgs/Point position
+float64 height
+float64 width

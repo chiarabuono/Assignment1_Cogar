@@ -75,6 +75,7 @@ class VictimTriage:
                     self.response = False
                     self.victimDetected = False
                     self.personIsMoving = False
+                self.victimDetected = False
             else: 
                 rospy.loginfo("Waiting for person")
             rate.sleep()

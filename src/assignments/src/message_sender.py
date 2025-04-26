@@ -32,7 +32,7 @@ class MessageSender:
         rospy.spin()
 
 if __name__ == '__main__':
-    node = DamageDetection()
+    node = MessageSender()
     node.run()
 
 

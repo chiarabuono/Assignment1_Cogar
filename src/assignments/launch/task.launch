@@ -1,11 +1,24 @@
 <launch>
      <!-- Init -->
     <node pkg="assignments" type="microphone.py" name="microphone" output="screen"/>
-    <node pkg="assignments" type="robot.py" name="robot_node" output="screen" />
 
     <!-- Task 1 -->
     <node pkg="assignments" type="damage_detection.py" name="damage_detection" output= "screen"/>
-    <!-- <node pkg="assignments" type="environment_alert.py" name="environment_alert" output="screen"/> -->
+    <node pkg="assignments" type="wall_identification.py" name="wall_identifcation" output= "screen"/>
+    <node pkg="assignments" type="crack_detection.py" name="crack_detection" output= "screen"/>
+
+    <!-- 3D mapping  -->
+    <node pkg="assignments" type="localization.py" name="localization" output= "screen"/>
+    <node pkg="assignments" type="map_builder.py" name="map_builder" output= "screen"/>
+
+    <!-- Victim handling -->
+    <node pkg="assignments" type="victim_triage.py" name="victim_triage" output= "screen"/>
+    <node pkg="assignments" type="message_sender.py" name="message_sender" output= "screen"/>
+
+
+    <!-- trajectory control -->
+    <node pkg="assignments" type="trajectory_control.py" name="trajectory_control" output= "screen"/>
+
 
      <!-- Task 2 -->
     <node pkg="assignments" type="person_alert.py" name="person_alert_node" output="screen"/>

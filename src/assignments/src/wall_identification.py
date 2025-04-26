@@ -2,10 +2,19 @@
 
 import rospy
 import random
+from geometry_msgs.msg import Point 
+from assignments.msg import Wall
+from sensor_msgs.msg import Image, LaserScan, Range
 
 class WallIdentification:
     def __init__(self):
-        self.wall_publisher = rospy.Publisher("wall", Point, queue_size=10)
+        rospy.init_node('wall_identifcation_node')
+
+        self.wall_x = 0
+        self.wall_y = 0
+        self.wall_z = 0
+
+        self.wall_publisher = rospy.Publisher("wall", Wall, queue_size=10)
 
         self.rbgd_sub = rospy.Subscriber("/xtion/rgb/image_raw", Image, self.rgbd_callback)
         self.lidar_sub = rospy.Subscriber("/scan", LaserScan, self.lidar_callback)
@@ -25,9 +34,10 @@ class WallIdentification:
     def sonar_callback(self, msg): 
         pass
     
-    def localization_sub(self, msg):
-        self.wall_x = msg.x + random.rand() * 10
-        self.wall_y = msg.y + random.rand() * 10
+    def localization_callback(self, msg):
+        self.wall_x = msg.x + random.random() * 10
+        self.wall_y = msg.y + random.random() * 10
+        self.wall_z = msg.z + random.random() * 10
         pass
  
     def run(self):
@@ -35,7 +45,7 @@ class WallIdentification:
         while not rospy.is_shutdown():
             send = random.randint(1, 20) <= 2
             if send:
-                self.wall_publisher.publish(Wall(Point(wall_x, wall_y), random.rand()*100, random.rand()*100))
+                self.wall_publisher.publish(Point(self.wall_x, self.wall_y, self.wall_z), random.random()*100, random.random()*100)
 
             rate.sleep()
 

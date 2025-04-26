@@ -4,9 +4,9 @@
 import rospy
 import random
 
-from std_msgs.msg import String
-from assignments.msg import Cracks, Crack
+from assignments.msg import Cracks, Wall
 from assignments.srv import Destination, DestinationRequest
+from geometry_msgs.msg import Point
 
 class DamageDetection:
     def __init__(self):
@@ -26,7 +26,7 @@ class DamageDetection:
 
         elif (num < 2): 
             rospy.loginfo(f"Not enough information, moving closer")
-            destination = DestinationRequest(Point(rand.rand() * 100, rand.rand() * 100))
+            destination = DestinationRequest(Point(random.random() * 100, random.random() * 100))
             self.trajectory_client(destination)
 
         else:
@@ -35,9 +35,7 @@ class DamageDetection:
             rospy.loginfo(f"Wall classification: {class_classification}")
     
     def wall_callback(self, msg):
-        
-
-
+        pass
 
     def run(self):
         rospy.spin()

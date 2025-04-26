@@ -1,4 +1,4 @@
-Point destination
+geometry_msgs/Point destination
 
 ---
 bool received

@@ -1,4 +1,4 @@
-Point position
-String severity
+geometry_msgs/Point position
+string severity
 ---
-Bool received
+bool received
