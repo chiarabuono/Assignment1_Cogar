@@ -1,8 +1,7 @@
 Component diagram
 ===================
 
-.. The architecture component diagram with accurate description detailing where different design patters could play a role in the final architecture implementation.
- #TODO in each file, not here
+.. #TODO in each file, not here
  For each component list:
  -  their interfaces 
  -  describe them according to the component-based  software architecture paradigm (i.e., stateless/statefull, data/service, strongly-typed/loosely-typed, etc).
@@ -24,6 +23,7 @@ This subsystem focuses on detecting cracks and unstable areas through image proc
 ^^^^^^^^^^^^^^
 The 3D Mapping subsystem allows the robot to create a map the surrounding environment and determine its localization using information from its sensors. The map built enables the trajectory control component to function correctly, allowing the robot to autonomously plan and adapt its route in response to newly detected obstacles or debris. Once the environment is fully explored, the system notify the human supervisor and awaits further instructions. 
 
+
 .. #TODO: implement integration test about the successfull receive of the ended mission
 
 The 3D Mapping subsystem is strictly linked to the Environment evaluation subsystem. Specifically:
@@ -44,42 +44,52 @@ Sensor inputs are external to the system scope and are provided via ROS bag file
 
 Environment evaluation
 ^^^^^^^^^^^^^^^^^^^^^^^^
-The environment evalutation subsystem uses the outputs from 3D Mapping to perform structural analysis. It comprises three component:
+The environment evalutation subsystem uses the outputs from 3D Mapping to perform structural analysis. It is composed of three main components:
 
-- Wall_Identification: Detects and categorizes walls and structural elements.
-- Crack_Detection: Identifies fractures in structures and assesses their severity.
-- Damage_Detection: Aggregates data to evaluate the overall structural integrity.
+- **Wall_Identification**: Detects and categorizes walls and structural elements within the environment.
+- **Crack_Detection**: Identifies fractures in walls and assesses their severity.
+- **Damage_Detection**: Aggregates results from the Wall_Identification and Crack_Detection components to evaluate the overall structural integrity of the environment.
 
 .. #TODO: Link to the corresponding message definition file.
 
-When a weak wall with cracks is detected, the subsystem (and specifically tje Damage_Detection block) generates a real-time critical report and sends it to the human supervisor. Based on this report, the  supervisor can manually ask to a more detailed inspection of that precise spot. If required, the robot can autonomously approach the area for a more precise assessment.
+Both **Wall_Identification** and **Crack_Detection** could benefit from the application of the Strategy Design pattern. Since there are multiple possible algorithms for wall detection and crack assessment, this pattern enables selecting the most appropriate algorithm at runtime depending on available sensor data, environmental conditions, or system configuration. In fact, we can find from simple thresholding tecquinique to machine learning-based approaches, or depth analysis techniques,between the possible strategy applicable.
+
+When the **Damage_Detection** component identifies a structurally dangerous wall, it generates a real-time critical report and sends it to the human supervisor. Upon receiving the alert, the supervisor can request a more detailed inspection of a specific area. If required, the robot can autonomously approach the area for a more precise assessment.
 
 .. # TODO: Did we implement the remote supervisor can manually request for more detailed evaluation of specific points?
 .. # TODO: Did we implement the autonomously movement of the robot?
 
+In addition, the **Trajectory_Control** component, responsible for planning and adjusting the robot's movements, could be effectively implemented using the State pattern. The robot's navigation behavior needs to dynamically change based on its internal state. For example, it might need to transition between exploring the environment, avoiding newly detected obstacles, approaching a point of interest for detailed inspection, or responding to emergency conditions such as unstable structures or detected victims. The State pattern allows these behavioral transitions to be modeled cleanly and maintainably.
+
 
 Victim detection and Reporting
 -------------------------------
-This subsystem uses RGB-D Cameras and Microphones to autonomously detect potential victims. When a victim is located, their position is computed, and a real-time alert is immediately notified to human rescuers.
+The Victim Detection and Reporting subsystem is responsible for autonomously identifying potential victims within the environment. It uses RGB-D cameras and microphones to detect human presence, calculate their precise location, and immediately send a real-time alert to human rescuers.
 
-After that, a triage is performed on the victim using the triage system block.
+Upon detection, the system triggers the Triage System to assess the victim's physical condition for rescue prioritization.
+
+As for the **Wall_Identification** and **Crack_Detection**, the **Victim_Detection** component could benefit from the application of a Strategy Design pattern.
+
+The **Victim_Detection** component could benefit from the application of the Strategy pattern, since different detection techniques may be used depending on the environmental conditions or sensor availability, allowing the system can dynamically select the most appropriate detection algorithm at runtime.
 
 
 Triage system
 ----------------------
-Once a victim is detected, this subsystem evaluates their physical condition to support prioritization in rescue operations. Using sensor data (RGB-D Camera and Microphones), the system computes:
+The Triage System subsystem operates after a victim is detected. It evaluates the victim's physical condition to prioritize rescue operations effectively. Using data collected from RGB-D cameras and microphones, the system assesses key health indicators, including:
 
 - Consciousness
 - Responsiveness
 - Severity of injuries
 
+The **Victim_Triage** component would similarly benefit from the Strategy pattern. Multiple triage assessment methods or criteria may be applicable depending on the situation.
+
+
 Message_Sender
 ----------------
-All three subsystems interface with the Message_Sender component—a service responsible for relaying alerts to the human operator. The type of alert sent depends on the source subsystem:
+All three subsystems interface with the Message_Sender component - a service responsible for relaying alerts to the human operator. The type of alert sent depends on the source subsystem:
 
 - Structural environment alarm
 - Victim detected alarm
 - Triage assessment completed
 
 .. # TODO link the 3 srv
-
