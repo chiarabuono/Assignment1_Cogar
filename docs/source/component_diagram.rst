@@ -59,7 +59,7 @@ When the **Damage_Detection** component identifies a structurally dangerous wall
 .. # TODO: Did we implement the remote supervisor can manually request for more detailed evaluation of specific points?
 .. # TODO: Did we implement the autonomously movement of the robot?
 
-In addition, the **Trajectory_Control** component, responsible for planning and adjusting the robot's movements, could be effectively implemented using the State pattern. The robot's navigation behavior needs to dynamically change based on its internal state. For example, it might need to transition between exploring the environment, avoiding newly detected obstacles, approaching a point of interest for detailed inspection, or responding to emergency conditions such as unstable structures or detected victims. The State pattern allows these behavioral transitions to be modeled cleanly and maintainably.
+In addition, the **Trajectory_Control** component, responsible for planning and adjusting the robot's movements, could be effectively designed using the State pattern. The robot's navigation behavior needs to adapt dynamically based on its current situation. For example, it might need to transition between exploring the environment, avoiding newly detected obstacles, approaching points of interest for closer inspection, or responding to emergencies such as unstable structures or detected victims. The State pattern offers a clean and maintainable way to model these behavioral changes. As shown in the diagram, the Trajectory_Control component provides an interface to the motor controller, enabling the robot to execute the appropriate movements as needed.
 
 
 Victim detection and Reporting
@@ -75,21 +75,19 @@ The **Victim_Detection** component could benefit from the application of the Str
 
 Triage system
 ----------------------
-The Triage System subsystem operates after a victim is detected. It evaluates the victim's physical condition to prioritize rescue operations effectively. Using data collected from RGB-D cameras and microphones, the system assesses key health indicators, including:
+The Triage System subsystem activates once a victim is detected. It evaluates the victim's physical condition to effectively prioritize rescue operations and generate an assessment report. Using data collected from RGB-D cameras and microphones, the system analyzes key health indicators, including:
 
 - Consciousness
 - Responsiveness
 - Severity of injuries
 
-The **Victim_Triage** component would similarly benefit from the Strategy pattern. Multiple triage assessment methods or criteria may be applicable depending on the situation.
+The Victim_Triage component would similarly benefit from the Strategy design pattern, as different triage assessment methods or criteria may be more appropriate depending on the situation. By applying the Strategy pattern, the system can flexibly select the most suitable evaluation approach without complicating the overall design.
 
 
 Message_Sender
 ----------------
 All three subsystems interface with the Message_Sender component - a service responsible for relaying alerts to the human operator. The type of alert sent depends on the source subsystem:
 
-- Structural environment alarm
-- Victim detected alarm
-- Triage assessment completed
-
-.. # TODO link the 3 srv
+- Structural environment alarm (DamageReport)
+- Victim detected alarm (VictimReport)
+- Triage assessment completed (TriageReport)
