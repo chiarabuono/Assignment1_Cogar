@@ -1,4 +1,4 @@
-Unit Test KPI
+integration Test KPI
 ====================
 
-The description of the integration testing KPIs and the obtained results
+The description of the integration testing (KPIs) and the obtained results
