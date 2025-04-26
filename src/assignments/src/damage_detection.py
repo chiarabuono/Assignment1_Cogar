@@ -5,16 +5,23 @@ import rospy
 import random
 
 from assignments.msg import Cracks, Wall
-from assignments.srv import Destination, DestinationRequest
+from assignments.srv import Destination, DestinationRequest, DamageReport, DamageReportRequest
 from geometry_msgs.msg import Point
+
+severities = ["Negligible", "Marginal", "Serious", "Major", "Catastrophic"]
 
 class DamageDetection:
     def __init__(self):
+        self.x = 0
+        self.y = 0
+        self.z = 0
+
         rospy.init_node('damage_detection')
         self.subscriber = rospy.Subscriber('cracks', Cracks, self.crack_analizer)
-        self.subscriber = rospy.Subscriber('wall_identification', Wall, self.wall_callback)
+        self.subscriber = rospy.Subscriber('walls', Wall, self.wall_callback)
 
         self.trajectory_client = rospy.ServiceProxy('movement_destination', Destination)
+        self.message_client = rospy.ServiceProxy('damage_message', DamageReport)
 
         rospy.loginfo(f"Damage detection node active")
 
@@ -30,12 +37,13 @@ class DamageDetection:
             self.trajectory_client(destination)
 
         else:
-            class_classification = self.wall_classification(msg)
-            self.publisher.publish(class_classification)
-            rospy.loginfo(f"Wall classification: {class_classification}")
+            rospy.loginfo(f"Wall classified")
+            self.message_client(DamageReportRequest(Point(self.x, self.y, self.z), severities[random.randint(0, len(severities) -1)]))
     
     def wall_callback(self, msg):
-        pass
+        self.x = msg.position.x
+        self.y = msg.position.y
+        self.z = msg.position.z
 
     def run(self):
         rospy.spin()

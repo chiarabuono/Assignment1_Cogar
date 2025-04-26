@@ -1,4 +1,2 @@
-#FIXME: use Point for position
-float64 x
-float64 y
+geometry_msgs/Point position
 std_msgs/String severity

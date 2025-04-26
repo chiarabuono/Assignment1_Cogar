@@ -16,15 +16,15 @@ class MessageSender:
         service = rospy.Service('triage_message', TriageReport, self.triage_callback)
 
 
-    def victim_callback(req):
+    def victim_callback(self, req):
         rospy.loginfo("Sending victim report")
         return VictimReportResponse(True)
 
-    def damage_callback(req):
+    def damage_callback(self, req):
         rospy.loginfo("Sending damage report")
         return DamageReportResponse(True)
 
-    def triage_callback(req):
+    def triage_callback(self, req):
         rospy.loginfo("Sending triage report")
         return TriageReportResponse(True)
 

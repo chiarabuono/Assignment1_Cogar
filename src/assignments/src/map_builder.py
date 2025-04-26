@@ -6,7 +6,7 @@ from geometry_msgs.msg import Point
 from sensor_msgs.msg import Image, LaserScan, Range
 from nav_msgs.msg import Odometry
 
-class Localization:
+class MapBuilder:
     def __init__(self):
         rospy.init_node('map_builder')
         self.walls = []
@@ -60,5 +60,5 @@ class Localization:
             rate.sleep()
 
 if __name__ == '__main__':
-    node = Localization()
+    node = MapBuilder()
     node.run()

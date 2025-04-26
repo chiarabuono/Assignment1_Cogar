@@ -6,9 +6,12 @@ from std_msgs.msg import Bool, Int32, String
 from geometry_msgs.msg import Point
 from sensor_msgs.msg import Image
 from audio_common_msgs.msg import AudioData
+from assignments.srv import TriageReport, TriageReportRequest
 
 class VictimTriage:
     def __init__(self):
+        self.victim_position = Point()
+
         rospy.init_node('victimTriageNode')
         
         self.rgbdSub = rospy.Subscriber("/xtion/rgb/image_raw", Image, self.checkMovement)
@@ -16,7 +19,8 @@ class VictimTriage:
         self.victimDetectedSub = rospy.Subscriber("victim_detected", Point, self.VictimDetectionCallback)
 
         self.speakerPub = rospy.Publisher("/speaker", String, queue_size = 1) #TODO: use speaker service
-        self.triagePub = rospy.Publisher("/triage", Int32, queue_size = 1)
+
+        self.message_client = rospy.ServiceProxy('victim_detection_message', TriageReport)
 
         self.personIsMoving = False 
         self.victimDetected = False
@@ -27,6 +31,7 @@ class VictimTriage:
         rospy.loginfo("Victim triage node is ready!")
 
     def VictimDetectionCallback(self, msg):
+        self.victim_position = msg
         self.victimDetected = True
 
     def checkMovement(self, msg): 
@@ -66,11 +71,11 @@ class VictimTriage:
 
                 if response_received:
                     elapsed = (rospy.Time.now() - self.responseTime).to_sec()
-                    self.triagePub.publish(int(elapsed))
+                    self.message_client(self.victim_position, elapsed)
                     rospy.loginfo(f"Victim responded in {int(elapsed)} seconds.")
                 else:
-                    self.triagePub.publish(99)
                     rospy.loginfo("No response from victim. Publishing code 99.")
+                    self.message_client(self.victim_position, 99)
 
                     self.response = False
                     self.victimDetected = False

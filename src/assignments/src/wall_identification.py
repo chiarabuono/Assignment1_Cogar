@@ -8,19 +8,19 @@ from sensor_msgs.msg import Image, LaserScan, Range
 
 class WallIdentification:
     def __init__(self):
-        rospy.init_node('wall_identifcation_node')
+        rospy.init_node('wall_identifcation')
 
         self.wall_x = 0
         self.wall_y = 0
         self.wall_z = 0
 
-        self.wall_publisher = rospy.Publisher("wall", Wall, queue_size=10)
+        self.wall_publisher = rospy.Publisher("walls", Wall, queue_size=10)
 
         self.rbgd_sub = rospy.Subscriber("/xtion/rgb/image_raw", Image, self.rgbd_callback)
         self.lidar_sub = rospy.Subscriber("/scan", LaserScan, self.lidar_callback)
         self.sonar_sub = rospy.Subscriber("/sonar_base", Range, self.sonar_callback)
 
-        self.localization_sub = rospy.Subscriber("localization_sub", Point, self.localization_callback) # TODO: check that circular dependency doesn't cause any problems
+        self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback) # TODO: check that circular dependency doesn't cause any problems
 
         rospy.loginfo(f"Damage detection node active")
 

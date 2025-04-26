@@ -6,8 +6,8 @@ import numpy as np
 import random
 
 def generateAudio():
-    rospy.init_node('microphoneNode')    
-    pub = rospy.Publisher('/mic', AudioData, queue_size=10)
+    rospy.init_node('microphone')    
+    pub = rospy.Publisher('mic', AudioData, queue_size=10)
 
     while not rospy.is_shutdown():
         # Generate random audio signal (e.g., 3 seconds of random 16-bit PCM data)

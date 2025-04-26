@@ -13,12 +13,12 @@ class TrajectoryControl:
         self.walls = []
         self.victims = []
 
-        service = rospy.Service('/movement_destination', Destination, self.destination_callback)
+        service = rospy.Service('movement_destination', Destination, self.destination_callback)
 
         self.velocities_publisher = rospy.Publisher("motor_velocities", Velocities, queue_size=10)
 
         self.map_sub = rospy.Subscriber("map", Map, self.map_callback)
-        self.localization_sub = rospy.Subscriber("localization_sub", Point, self.localization_callback)
+        self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback)
 
         rospy.loginfo(f"Trajectory control node active")
 
