@@ -1,9 +1,7 @@
 Key Performance Indicators (KPI) for Unit Test
 =====================================================
 
-This section defines the Key Performance Indicators (KPIs) used to evaluate the core ROS nodes responsible for 
-structural analysis, victim detection, and triage in a post-earthquake search and rescue scenario. 
-Each KPI includes its success threshold for unit testing and performance benchmarking.
+This section defines the Key Performance Indicators (KPIs) used to evaluate the core ROS nodes responsible for structural analysis, victim detection, and triage in a post-earthquake search and rescue scenario.  Each KPI includes its success threshold for unit testing and performance benchmarking.
 
 Structural Risk Assessment
 --------------------------
@@ -22,6 +20,7 @@ Structural Risk Assessment
 
 - **Assessment Response Time (ms) - Threshold: < 1000 ms**  
   Time elapsed between detecting a potential structural issue and generating a full evaluation.
+
 
 Victim Detection and Reporting
 ------------------------------
