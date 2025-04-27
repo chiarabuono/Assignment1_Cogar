@@ -1,7 +1,6 @@
 Component diagram
 ===================
 
-.. #TODO in each file, not here
  For each component list:
  -  their interfaces 
  -  describe them according to the component-based software architecture paradigm (i.e., stateless/statefull, data/service, strongly-typed/loosely-typed, etc).
@@ -24,16 +23,12 @@ This subsystem focuses on detecting cracks and unstable areas through image proc
 The 3D Mapping subsystem allows the robot to create a map the surrounding environment and determine its localization using information from its sensors. The map built enables the trajectory control component to function correctly, allowing the robot to autonomously plan and adapt its route in response to newly detected obstacles or debris. Once the environment is fully explored, the system notify the human supervisor and awaits further instructions. 
 
 
-.. #TODO: implement integration test about the successfull receive of the ended mission
-
 The 3D Mapping subsystem is strictly linked to the Environment evaluation subsystem. Specifically:
 
 - The Map_Builder component provides the spatial map.
 - The Localization component provides the robot's real-time position inside the given map.
 
 These interfaces are highly important since once a critical structure is found by the Environment subsystem, it can be uploaded into the map, allowing the future operator to have a broader vision of the environment conditions.
-
-.. # TODO: integration testing about Autonomous navigation: the robot adjusts its route based on newly detected obstacles, debris, or structural changes. It gives information to the trajectory control block
 
 Sensor inputs are external to the system scope and are provided via ROS bag files. These include:
 
@@ -49,8 +44,6 @@ The environment evalutation subsystem uses the outputs from 3D Mapping to perfor
 - **Wall_Identification**: Detects and categorizes walls and structural elements within the environment.
 - **Crack_Detection**: Identifies fractures in walls and assesses their severity.
 - **Damage_Detection**: Aggregates results from the Wall_Identification and Crack_Detection components to evaluate the overall structural integrity of the environment.
-
-.. #TODO: Link to the corresponding message definition file.
 
 Both **Wall_Identification** and **Crack_Detection** could benefit from the application of the Strategy Design pattern. Since there are multiple possible algorithms for wall detection and crack assessment, this pattern enables selecting the most appropriate algorithm at runtime depending on available sensor data, environmental conditions, or system configuration. In fact, we can find from simple thresholding tecquinique to machine learning-based approaches, or depth analysis techniques,between the possible strategy applicable.
 

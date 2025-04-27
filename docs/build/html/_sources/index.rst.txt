@@ -34,7 +34,82 @@ where {ROS_DISTRO} is the ROS distribution installed on your system. After syste
 
 Repository Structure
 --------------------
-# TODO: write the repository structure once finisher
+
+Repo's tree::
+
+  +- docs
+    |  +- build
+    |  |  +- doctrees
+    |  |  +- html
+    |  +- make.bat
+    |  +- Makefile
+    |  +- requirements.txt
+    |  +- source
+    |     +- behavioural_diagram.rst
+    |     +- component_diagram.rst
+    |     +- conf.py
+    |     +- custom_messages.rst
+    |     +- img
+    |     |  +- behavioural_diagram-task1.drawio.png
+    |     |  +- behavioural_diagram-task2.drawio.png
+    |     |  +- behavioural_diagram-task3.drawio.png
+    |     |  +- component_diagram.drawio.png
+    |     +- index.rst
+    |     +- integration_KPI.rst
+    |     +- interface_description.rst
+    |     +- unit_KPI.rst
+    +- README.md
+    +- src
+       +- assignments
+       |  +- bags
+       |  |  +- arm_jointstate.bag
+       |  |  +- depth_raw.bag
+       |  |  +- force_sensor.bag
+       |  |  +- odometry.bag
+       |  |  +- rgb_raw.bag
+       |  |  +- scan_lidar.bag
+       |  |  +- sonar.bag
+       |  +- CMakeLists.txt
+       |  +- launch
+       |  |  +- task.launch
+       |  +- msg
+       |  |  +- Crack.msg
+       |  |  +- Cracks.msg
+       |  |  +- Map.msg
+       |  |  +- Velocities.msg
+       |  |  +- Wall.msg
+       |  +- package.xml
+       |  +- src
+       |  |  +- arm_motion_service.py
+       |  |  +- closer_inspection.py
+       |  |  +- crack_detection.py
+       |  |  +- damage_detection.py
+       |  |  +- localization.py
+       |  |  +- map_builder.py
+       |  |  +- message_sender.py
+       |  |  +- microphone.py
+       |  |  +- person_alert.py
+       |  |  +- speaker_service.py
+       |  |  +- trajectory_control.py
+       |  |  +- victim_detection.py
+       |  |  +- victim_triage.py
+       |  |  +- wall_identification.py
+       |  +- srv
+       |  |  +- Alert.srv
+       |  |  +- CheckJointState.srv
+       |  |  +- CloserInspection.srv
+       |  |  +- DamageReport.srv
+       |  |  +- Destination.srv
+       |  |  +- Speaker.srv
+       |  |  +- TriageReport.srv
+       |  |  +- VictimReport.srv
+       |  |  +- WallStatus.srv
+       |  +- tests
+       |     +- task1_integration_test.py
+       |     +- task1_integration_test.test
+       |     +- task2_3_integration_test.py
+       |     +- task2_3_integration_test.test
+       +- CMakeLists.txt -> /opt/ros/noetic/share/catkin/cmake/toplevel.cmake
 
 .. - **src/**
   Contains the `assignments` ROS package, which includes Python service nodes.
