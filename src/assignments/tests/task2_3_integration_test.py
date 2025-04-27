@@ -23,10 +23,13 @@ class IntegrationTest(unittest.TestCase):
         if msg.data == 'triage':
             self.triage_message = True
 
-    def test_callback(self):
-        rospy.sleep(10)  # Allow time for the subscriber to connect
+    def test_victim_detec(self):
+        rospy.sleep(2)  # Allow time for the subscriber to connect
 
         self.assertTrue(self.victim_detected_message)
+
+    def test_victim_triage(self):
+        rospy.sleep(10)
         self.assertTrue(self.triage_message)
 
 if __name__ == '__main__':

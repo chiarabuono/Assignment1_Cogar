@@ -2,10 +2,14 @@
     <!-- TODO: write into the documentation to import bags in the right directory -->
     <!-- TODO: should we use the other bags ?-->
 
-    <node pkg="rosbag" type="play" name="player" args="--clock $(find assignments)/bags/rgb_raw.bag"/> 
+    <node pkg="rosbag" type="play" name="rgb_camera" args="--clock $(find assignments)/bags/rgb_raw.bag"/> 
+    <node pkg="rosbag" type="play" name="lidar" args="--clock $(find assignments)/bags/scan_lidar.bag"/> 
+    <node pkg="rosbag" type="play" name="sonar" args="--clock $(find assignments)/bags/sonar.bag"/> 
+    <node pkg="rosbag" type="play" name="odometry" args="--clock $(find assignments)/bags/odometry.bag"/> 
 
     <node pkg="assignments" type="crack_detection.py" name="crack_detection" output="screen"/>
 
+    <node pkg="assignments" type="map_builder.py" name="map_builder" output="screen"/>
     <node pkg="assignments" type="wall_identification.py" name="wall_identification" output="screen"/>
     <node pkg="assignments" type="damage_detection.py" name="damage_detection" output="screen"/>
     <node pkg="assignments" type="trajectory_control.py" name="trajectory_control" output="screen"/>
