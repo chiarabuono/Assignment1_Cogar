@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import random
 import rospy
 from assignments.msg import Wall, Map
 from geometry_msgs.msg import Point
@@ -46,16 +47,19 @@ class MapBuilder:
         pass
 
     def victim_callback (self, msg):
-        self.victims.append(Point(msg.x, msg.y, msg.z))
+        self.victims.append(msg)
     
     def wall_callback(self, msg):
-        self.walls.append(Wall(Point(msg.position.x, msg.position.y, msg.position.y), msg.height, msg.width))
+        self.walls.append(msg)
 
     def run(self):
         rate = rospy.Rate(100) 
         while not rospy.is_shutdown():
-            # TODO: manage map completion
-            self.map_publisher.publish([], [], False) # TODO: put real data here
+            map = Map()
+            map.walls = self.walls
+            map.victims = self.victims
+            map.completed = random.randint(1, 10000) == 1
+            self.map_publisher.publish(map) 
 
             rate.sleep()
 

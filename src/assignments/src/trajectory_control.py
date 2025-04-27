@@ -9,6 +9,10 @@ from geometry_msgs.msg import Point
 
 class TrajectoryControl:
     def __init__(self):
+        self.x = 0
+        self.y = 0
+        self.z = 0
+
         rospy.init_node('trajectory_control')
         self.walls = []
         self.victims = []
@@ -30,8 +34,9 @@ class TrajectoryControl:
         pass
 
     def localization_callback(self, msg):
-        pass
-        # TODO implment this callback
+        self.x = msg.x
+        self.y = msg.y
+        self.z = msg.z
 
     def run(self):
         rospy.spin()

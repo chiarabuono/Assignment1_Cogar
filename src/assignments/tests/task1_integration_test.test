@@ -1,7 +1,4 @@
 <launch>
-    <!-- TODO: write into the documentation to import bags in the right directory -->
-    <!-- TODO: should we use the other bags ?-->
-
     <node pkg="rosbag" type="play" name="rgb_camera" args="--clock $(find assignments)/bags/rgb_raw.bag"/> 
     <node pkg="rosbag" type="play" name="lidar" args="--clock $(find assignments)/bags/scan_lidar.bag"/> 
     <node pkg="rosbag" type="play" name="sonar" args="--clock $(find assignments)/bags/sonar.bag"/> 
