@@ -44,6 +44,7 @@ Repository Structure
    component_diagram
    behaviour_diagram
    interface_description
+   custom_messages
    unit_KPI
    integration_KPI
-
+   
