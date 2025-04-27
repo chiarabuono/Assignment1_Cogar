@@ -12,7 +12,7 @@ This page provides an architectural component diagram. It is organized into thre
 - Victim Detection and Reporting
 - Triage System
 
-.. .. image:: /img/{absolut-document-subdirectory}/{file}.svg
+.. image:: img/component_diagram.drawio.png
   :alt: Alt text. Every image should have descriptive alt text.
 
 Structural Risk Assessment

@@ -1,4 +1,4 @@
-Behaviour diagram
+Behavioural diagram
 ======================
 
 .. The Behavioral Diagram and its description for each mandatory component. The choice of behavioral diagram should be consistent with the type of component.
@@ -19,7 +19,8 @@ This sequence is repeated iteratively until the environment is fully explored.
 
 It is important to note that, in the implementation of our architecture, we assume that the robot is equipped with a dedicated motion control node responsible for managing movement within the environment. Therefore, we rely on this interface for handling motion commands. Similarly, we consider the presence of an emergency stop button, directly interfaced with the motion control node, which allows an on-site operator to immediately stop the robot in case of malfunction. In addition, an error handling block has been incorporated into the model: if a planning failure or unexpected event occurs, the system can manage these cases gracefully without causing fatal errors.
 
-# TODO: ADD THE DIAGRAM HERE
+.. image:: img/behavioural_diagram-task1.drawio.png
+    :alt: Task 3 behavioral diagram
 
 Victim detection and Reporting
 -------------------------------
@@ -34,17 +35,18 @@ The logical flow of the activity diagram is structured as follows:
 - **Start**: The robot continuously subscribes to RGB-D image data, microphone input, and updates its current localization.
 - **Analyze data**: The incoming image and audio streams are processed to determine whether a person has been detected visually or acoustically.
 - **Detection event**: If either the camera or microphone detects a person:
+
     - A position estimate is generated based on the current robot location.
     - The detected victim position is published.
     - A service request is sent to report the victim detection to the operator and mission management systems.
 
 The system then loops back and waits for new data from the sensors.
 
+.. image:: img/behavioural_diagram-task2.drawio.png
+    :alt: Task 3 behavioral diagram
+
 Triage system
 ----------------------
-
-.. .. image:: img/behavioural_diagram-task3.png
-    :alt: Task 3 behavioral diagram
 
 This chapter describes the behaviour of the **triage system** module, 
 which is responsible for assessing a detected victim's consciousness, responsiveness, and critical condition.
@@ -74,4 +76,7 @@ The process flow, as shown in the diagram, consists of the following key stages:
   - If the person does not answer: the robot checks for a response at 500 ms intervals for up to 10 seconds. If no answer is received within this time, the person is considered dead, and a report is generated.
 
 - **End**: After assessing the victim and sending the triage report, the process terminates.
+
+.. image:: img/behavioural_diagram-task3.drawio.png
+    :alt: Task 3 behavioral diagram
 

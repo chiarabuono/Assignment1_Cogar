@@ -4,9 +4,33 @@
    contain the root `toctree` directive.
 
 Cogar Assignments documentation
-===============================
+================================
 
-This repository contains the code for the `Assignment_Cogar` project.  
+This repository contains the code for the `Assignment_Cogar` project.
+
+Group Members
+-----------------------
+
+- Roberto Bertelli s728918@studenti.unige.it
+- Chiara Buono s7687956@studenti.unige.it
+- Mattia Tinfena s7852527@studenti.unige.it
+
+Link github repository: git@github.com:chiarabuono/Assignment1_Cogar.git
+
+Requirements
+--------------
+
+Before installing Python packages, you must install the following dependencies:
+
+.. code-block:: bash
+
+    sudo apt install ros-${ROS_DISTRO}-audio-common-msgs
+
+where {ROS_DISTRO} is the ROS distribution installed on your system. After system dependencies are installed, install Python packages:
+
+.. code-block:: bash
+
+    pip install -r requirements.txt
 
 Repository Structure
 --------------------
@@ -36,13 +60,14 @@ Repository Structure
   - Odometry: Provides the robot's current position and velocity.
   - Arm Joint State: Includes information about the robot's limb, such as positions, velocities, and effort. 
 
+  In order to be able to run the integration tests correctly, it is necessary to download these bags and place them inside a folder called "bags" in the assignments folder: /src/assignments/bags.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
    component_diagram
-   behaviour_diagram
+   behavioural_diagram
    interface_description
    custom_messages
    unit_KPI

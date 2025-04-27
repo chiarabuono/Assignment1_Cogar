@@ -34,7 +34,7 @@ html_show_sourcelink = False
 html_context = {
     "display_github": True,
     #"github_user": "AleBulanti",
-    "github_repo": "Assignment1_Cogar",
+    "github_repo": "git@github.com:chiarabuono/Assignment1_Cogar.git",
     "github_version": "main",
     "conf_py_path": "/docs/source/",
 }
