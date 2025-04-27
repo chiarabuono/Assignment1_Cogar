@@ -24,7 +24,7 @@ class IntegrationTest(unittest.TestCase):
             self.triage_message = True
 
     def test_victim_detec(self):
-        rospy.sleep(2)  # Allow time for the subscriber to connect
+        rospy.sleep(10)  # Allow time for the subscriber to connect
 
         self.assertTrue(self.victim_detected_message)
 
