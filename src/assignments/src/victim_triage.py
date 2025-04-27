@@ -6,7 +6,7 @@ from std_msgs.msg import Bool, Int32, String
 from geometry_msgs.msg import Point
 from sensor_msgs.msg import Image
 from audio_common_msgs.msg import AudioData
-from assignments.srv import TriageReport, TriageReportRequest
+from assignments.srv import TriageReport, TriageReportRequest, Speaker, SpeakerRequest
 
 class VictimTriage:
     def __init__(self):
@@ -18,8 +18,7 @@ class VictimTriage:
         self.mic_sub = rospy.Subscriber("/mic", AudioData, self.audioAnalisysCallback)
         self.victimDetectedSub = rospy.Subscriber("victim_detected", Point, self.VictimDetectionCallback)
 
-        self.speakerPub = rospy.Publisher("/speaker", String, queue_size = 1) #TODO: use speaker service
-
+        self.speaker_client = rospy.ServiceProxy('speaker', Speaker)
         self.message_client = rospy.ServiceProxy('victim_detection_message', TriageReport)
 
         self.personIsMoving = False 
@@ -58,7 +57,7 @@ class VictimTriage:
                 self.responseTime = rospy.Time.now()
                 if self.personIsMoving:
                     self.responseTime = rospy.Time.now()
-                    self.speakerPub.publish("Are you ok?")
+                    self.speaker_client(SpeakerRequest("Are you ok ?"))
                     rospy.loginfo("Asking victim if they are okay...")
                     
                     # Wait for up to 10 seconds for a response
@@ -73,11 +72,11 @@ class VictimTriage:
 
                     if response_received:
                         elapsed = (rospy.Time.now() - self.responseTime).to_sec()
-                        self.message_client(self.victim_position, elapsed)
+                        self.message_client(TriageReportRequest(self.victim_position, elapsed))
                         rospy.loginfo(f"Victim responded in {int(elapsed)} seconds.")
                     else:
                         rospy.loginfo("No response from victim. Publishing code 99.")
-                        self.message_client(self.victim_position, 99)
+                        self.message_client(TriageReportRequest(self.victim_position, 99))
 
                         self.response = False
                         self.victimDetected = False
@@ -87,7 +86,7 @@ class VictimTriage:
                     elapsed = (rospy.Time.now() - self.responseTime).to_sec()
                     if elapsed > 10:
                         rospy.loginfo("Person is dead")
-                        self.message_client(self.victim_position, 99)
+                        self.message_client(TriageReportRequest(self.victim_position, 99))
                         self.response = False
                         self.victimDetected = False
                         self.personIsMoving = False

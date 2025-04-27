@@ -32,6 +32,7 @@ class TrajectoryControl:
 
     def localization_callback(self, msg):
         pass
+        # TODO implment this callback
 
     def run(self):
         rospy.spin()

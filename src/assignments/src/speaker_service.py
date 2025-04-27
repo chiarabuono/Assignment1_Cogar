@@ -20,7 +20,7 @@ def speaker_callback(req):
 
 def speaker_service():
     rospy.init_node('speaker_service')
-    service = rospy.Service('/speaker', Speaker, speaker_callback)
+    service = rospy.Service('speaker', Speaker, speaker_callback)
     rospy.loginfo("Speaker service is ready!")
     rospy.spin()
 

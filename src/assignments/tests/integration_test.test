@@ -1,0 +1,6 @@
+<launch>
+    <!-- TODO: write into the documentation to import bags in the right directory -->
+    <node pkg="rosbag" type="play" name="player" args="--clock $(find assignments)/bags/rgb_raw.bag"/> 
+    <node pkg="assignments" type="crack_detection.py" name="crack_detection" output="screen"/>
+    <test test-name="integration_test" pkg="assignments" type="integration_test.py"/>
+</launch>

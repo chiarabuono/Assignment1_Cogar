@@ -3,7 +3,6 @@ import rospy
 import random
 
 from std_msgs.msg import String
-from sensor_msgs.msg import Image
 from assignments.msg import Cracks, Crack
 from sensor_msgs.msg import Image, LaserScan, Range
 from geometry_msgs.msg import Point
@@ -39,7 +38,7 @@ class CrackDetection:
         pass
 
     def detect_cracks(self, image):
-        #rospy.loginfo(f"Received image with height: {image.height}, and width: {image.width}")
+        rospy.loginfo(f"Received image with height: {image.height}, and width: {image.width}")
 
         n_cracks = random.randint(0,10)
 
@@ -48,9 +47,9 @@ class CrackDetection:
         cracks.cracks = []
         for i in range(n_cracks):
             crack = Crack()
-            crack.x = self.x + random.random() * 100
-            crack.y = self.y + random.random() * 100
-            crack.z = self.z + random.random() * 100
+            crack.position.x = self.x + random.random() * 100
+            crack.position.y = self.y + random.random() * 100
+            crack.position.z = self.z + random.random() * 100
 
             crack.severity = String(severities[random.randint(0, len(severities) -1)])
             cracks.cracks.append(crack)

@@ -55,7 +55,7 @@ class MapBuilder:
         rate = rospy.Rate(100) 
         while not rospy.is_shutdown():
             # TODO: manage map completion
-            self.map_publisher.publish([], [], False) # TODO: punt real data here
+            self.map_publisher.publish([], [], False) # TODO: put real data here
 
             rate.sleep()
 

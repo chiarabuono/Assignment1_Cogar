@@ -10,6 +10,8 @@ from assignments.srv import DamageReport, DamageReportResponse, TriageReport, Tr
 class MessageSender:
     def __init__(self):
         rospy.init_node('message_sender')
+        service = rospy.Publisher('message_sender')
+
         service = rospy.Service('victim_detection_message', VictimReport, self.victim_callback)
         service = rospy.Service('damage_message', DamageReport, self.damage_callback)
         service = rospy.Service('triage_message', TriageReport, self.triage_callback)
