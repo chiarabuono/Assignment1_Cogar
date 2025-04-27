@@ -15,7 +15,7 @@ Group Members
 - Chiara Buono s7687956@studenti.unige.it
 - Mattia Tinfena s7852527@studenti.unige.it
 
-Link github repository: git@github.com:chiarabuono/Assignment1_Cogar.git
+Link github repository: https://github.com/chiarabuono/Assignment1_Cogar
 
 Requirements
 --------------
