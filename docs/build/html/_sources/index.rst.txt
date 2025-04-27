@@ -43,6 +43,7 @@ Repository Structure
 
    component_diagram
    behaviour_diagram
+   interface_description
    unit_KPI
    integration_KPI
 

@@ -4,9 +4,9 @@ Component diagram
 .. #TODO in each file, not here
  For each component list:
  -  their interfaces 
- -  describe them according to the component-based  software architecture paradigm (i.e., stateless/statefull, data/service, strongly-typed/loosely-typed, etc).
+ -  describe them according to the component-based software architecture paradigm (i.e., stateless/statefull, data/service, strongly-typed/loosely-typed, etc).
 
-This page provides an architectural component diagram. It is organizedinto three main subsystems:
+This page provides an architectural component diagram. It is organized into three main subsystems:
 
 - Structural Risk Assessment
 - Victim Detection and Reporting
@@ -56,8 +56,6 @@ Both **Wall_Identification** and **Crack_Detection** could benefit from the appl
 
 When the **Damage_Detection** component identifies a structurally dangerous wall, it generates a real-time critical report and sends it to the human supervisor. Upon receiving the alert, the supervisor can request a more detailed inspection of a specific area. If required, the robot can autonomously approach the area for a more precise assessment.
 
-.. # TODO: Did we implement the remote supervisor can manually request for more detailed evaluation of specific points?
-.. # TODO: Did we implement the autonomously movement of the robot?
 
 In addition, the **Trajectory_Control** component, responsible for planning and adjusting the robot's movements, could be effectively designed using the State pattern. The robot's navigation behavior needs to adapt dynamically based on its current situation. For example, it might need to transition between exploring the environment, avoiding newly detected obstacles, approaching points of interest for closer inspection, or responding to emergencies such as unstable structures or detected victims. The State pattern offers a clean and maintainable way to model these behavioral changes. As shown in the diagram, the Trajectory_Control component provides an interface to the motor controller, enabling the robot to execute the appropriate movements as needed.
 
