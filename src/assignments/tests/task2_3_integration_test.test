@@ -1,0 +1,12 @@
+<launch>
+    <node pkg="rosbag" type="play" name="player" args="--clock $(find assignments)/bags/rgb_raw.bag"/> 
+    <node pkg="assignments" type="speaker_service.py" name="speaker_service" output="screen"/>
+    <node pkg="assignments" type="microphone.py" name="microphone" output="screen"/>
+
+    <node pkg="assignments" type="message_sender.py" name="message_sender" output="screen"/>
+
+    <node pkg="assignments" type="victim_detection.py" name="victim_detection" output="screen"/>
+    <node pkg="assignments" type="victim_triage.py" name="victim_triage" output="screen"/>
+
+    <test test-name="task2_3_integration_test" pkg="assignments" type="task2_3_integration_test.py"/>
+</launch>

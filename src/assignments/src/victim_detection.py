@@ -24,11 +24,8 @@ class VictimDetection:
 
         self.person_in_image = False 
         self.heard_person = False
- 
-        rospy.loginfo("Victim detection node is ready!")
 
-    def image_processing(self, msg): 
-        self.person_in_image = msg
+        rospy.loginfo("Victim detection node is ready!")
 
     def mic_callback(self, msg):
         if int(msg.data[0]) < 100:  

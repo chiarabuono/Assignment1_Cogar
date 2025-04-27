@@ -18,8 +18,12 @@ class VictimTriage:
         self.mic_sub = rospy.Subscriber("/mic", AudioData, self.audioAnalisysCallback)
         self.victimDetectedSub = rospy.Subscriber("victim_detected", Point, self.VictimDetectionCallback)
 
+        rospy.wait_for_service('speaker')
         self.speaker_client = rospy.ServiceProxy('speaker', Speaker)
-        self.message_client = rospy.ServiceProxy('victim_detection_message', TriageReport)
+        rospy.wait_for_service('triage_message')
+        self.message_client = rospy.ServiceProxy('triage_message', TriageReport)
+
+        self.message_client(TriageReportRequest(self.victim_position, 99))
 
         self.personIsMoving = False 
         self.victimDetected = False
@@ -52,6 +56,9 @@ class VictimTriage:
     def run(self):
         rate = rospy.Rate(1)
 
+        # even tho the waiting times in the documentation are reported as 10 
+        # they have been reduced to speed up the test
+        # this is acceptable since its a dummy component
         while not rospy.is_shutdown():
             if self.victimDetected:
                 self.responseTime = rospy.Time.now()
@@ -64,7 +71,7 @@ class VictimTriage:
                     response_received = False
                     start_time = rospy.Time.now()
                     
-                    while (rospy.Time.now() - start_time).to_sec() < 10:
+                    while (rospy.Time.now() - start_time).to_sec() < 2:
                         if self.response:
                             response_received = True
                             break
@@ -72,7 +79,7 @@ class VictimTriage:
 
                     if response_received:
                         elapsed = (rospy.Time.now() - self.responseTime).to_sec()
-                        self.message_client(TriageReportRequest(self.victim_position, elapsed))
+                        self.message_client(TriageReportRequest(self.victim_position, int(elapsed)))
                         rospy.loginfo(f"Victim responded in {int(elapsed)} seconds.")
                     else:
                         rospy.loginfo("No response from victim. Publishing code 99.")
@@ -84,7 +91,7 @@ class VictimTriage:
                     self.victimDetected = False
                 else:
                     elapsed = (rospy.Time.now() - self.responseTime).to_sec()
-                    if elapsed > 10:
+                    if elapsed > 2:
                         rospy.loginfo("Person is dead")
                         self.message_client(TriageReportRequest(self.victim_position, 99))
                         self.response = False

@@ -23,8 +23,7 @@ class TrajectoryControl:
         rospy.loginfo(f"Trajectory control node active")
 
     def destination_callback(self, req):
-        self.velocities_publisher.publish(Velocities(random.random() * 10,
-            random.random() * 10 , random.random() * 10, random.random() * 10 ))
+        self.velocities_publisher.publish([random.random() * 10, random.random() * 10 , random.random() * 10, random.random() * 10 ])
         return DestinationResponse(True)
 
     def map_callback(self, msg):

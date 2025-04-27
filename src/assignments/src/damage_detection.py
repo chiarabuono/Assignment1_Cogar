@@ -32,7 +32,7 @@ class DamageDetection:
 
         elif (num < 2): 
             rospy.loginfo(f"Not enough information, moving closer")
-            destination = DestinationRequest(Point(random.random() * 100, random.random() * 100))
+            destination = DestinationRequest(Point(self.x + random.random() * 100, self.y + random.random() * 100, self.z + random.random() * 100))
             self.trajectory_client(destination)
 
         else:

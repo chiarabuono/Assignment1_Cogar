@@ -22,7 +22,7 @@ class MapBuilder:
         self.localization_sub = rospy.Subscriber("localization", Point, self.localization_callback)
 
         self.victim_sub = rospy.Subscriber("victim_detected", Point, self.victim_callback)
-        self.wall_sub = rospy.Subscriber("wall", Wall, self.wall_callback)
+        self.wall_sub = rospy.Subscriber("walls", Wall, self.wall_callback)
         
         rospy.loginfo(f"Map builder node active")
 
