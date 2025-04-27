@@ -88,14 +88,12 @@ Repo's tree::
        |  |  +- map_builder.py
        |  |  +- message_sender.py
        |  |  +- microphone.py
-       |  |  +- person_alert.py
        |  |  +- speaker_service.py
        |  |  +- trajectory_control.py
        |  |  +- victim_detection.py
        |  |  +- victim_triage.py
        |  |  +- wall_identification.py
        |  +- srv
-       |  |  +- Alert.srv
        |  |  +- CheckJointState.srv
        |  |  +- CloserInspection.srv
        |  |  +- DamageReport.srv
@@ -103,7 +101,6 @@ Repo's tree::
        |  |  +- Speaker.srv
        |  |  +- TriageReport.srv
        |  |  +- VictimReport.srv
-       |  |  +- WallStatus.srv
        |  +- tests
        |     +- task1_integration_test.py
        |     +- task1_integration_test.test

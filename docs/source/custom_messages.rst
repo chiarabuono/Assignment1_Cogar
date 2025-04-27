@@ -42,60 +42,60 @@ Custom services
 
 CloserInspection
 ----------------
- - In: 
+ - Request: 
     - geometry_msgs/Point position
 
- - Out: 
+ - Response: 
     - bool received
 
 .. _DamageReport:
 
 DamageReport
 ------------
-- In:
+- Request:
     - geometry_msgs/Point position
     - string severity
 
-- Out:
+- Response:
     - bool received
 
 .. _Destination:
 
 Destination
 ----------------
-- In:
+- Request:
     - geometry_msgs/Point destination
     
-- Out:
+- Response:
     - bool received
 
 .. _Speaker:
 
 Speaker
 ----------------
-- In:
+- Request:
     - string message
     
-- Out:
+- Response:
     - bool success
 
 .. _TriageReport:
 
 TriageReport
 ----------------
-- In:
+- Request:
     - geometry_msgs/Point position
     - int64 severity
     
-- Out:
+- Response:
     - bool received
 
 .. _VictimReport:
 
 VictimReport
 ----------------
-- In:
+- Request:
     - geometry_msgs/Point position
     
-- Out:
+- Response:
     - bool received
